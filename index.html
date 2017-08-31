@@ -6,7 +6,9 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
     <title>Access traffic using OAuth2</title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
+
     <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-rc.7/css/calcite-web.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="dojoConfig.js"></script>
     <script src="https://js.arcgis.com/4.3/"></script>
 
@@ -32,11 +34,28 @@
         }
         
         .top-nav {
-            background-color: #ccdf0b;
+            background-color: #afbf07;
+        }
+        
+        .top-nav-link {
+            color: #fefefe;
         }
         
         .esri-footer-brand-image {
             fill: #fefefe;
+        }
+        
+        .esri-ui-corner .esri-widget {
+            background-color: #afbf07;
+        }
+        
+        .esri-widget-button {
+            border-style: 1px solid white;
+            color: #fefefe;
+        }
+        
+        .esri-widget {
+            color: #fefefe;
         }
     </style>
     <script type="text/javascript" src="./app/auth.js"></script>
@@ -67,7 +86,7 @@
             </div>
         </header>
         <div class="column-24 center-column">
-            <div id="mainMap">
+            <div data-ripple id="mainMap">
                 <span id="info" style="position:absolute; left:15px; bottom:5px; color:#000; z-index:50;"></span>
             </div>
         </div>

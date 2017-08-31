@@ -6,13 +6,15 @@ require([
     "esri/views/MapView",
     "esri/layers/MapImageLayer",
     "esri/geometry/support/webMercatorUtils",
+    "esri/widgets/BasemapToggle",
+    "esri/widgets/Legend",
     "dojo/dom-style",
     "dojo/dom-attr",
     "dojo/on",
     "dojo/dom",
     "dojo/domReady!"
 ], function(
-    Portal, OAuthInfo, esriId, Map, MapView, MapImageLayer, webMercatorUtils,
+    Portal, OAuthInfo, esriId, Map, MapView, MapImageLayer, webMercatorUtils, BasemapToggle, Legend,
     domStyle, domAttr, on, dom) {
     // ArcGIS Enterprise Portals are also supported
     var portalUrl = "https://www.arcgis.com/sharing";
@@ -61,7 +63,10 @@ require([
                 container: "viewDiv",
                 map: map,
                 zoom: 11,
-                center: [26.10, 44.44]
+                center: [26.10, 44.44],
+                constraints: {
+                    rotationEnabled: false
+                }
             });
 
             var traffic = new MapImageLayer({
@@ -70,16 +75,34 @@ require([
             map.add(traffic);
             view.ui.move("zoom", "bottom-left");
 
-            view.on("click", function(event) {
-                // you must overwrite default click-for-popup
-                // behavior to display your own popup
-                event.stopPropagation();
-
-                // Get the coordinates of the click on the view
-                var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
-                var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
-                console.log(lat, lon);
+            var basemapToggle = new BasemapToggle({
+                view: view,
+                nextBasemap: "satellite"
             });
+
+            view.ui.add(basemapToggle, "bottom-right");
+
+            var legend = new Legend({
+                view: view,
+                layerInfos: [{
+                    layer: traffic,
+                    title: "Legend"
+                }]
+            });
+
+            view.ui.add(legend, "top-right");
+
+
+            // view.on("click", function(event) {
+            //     // you must overwrite default click-for-popup
+            //     // behavior to display your own popup
+            //     event.stopPropagation();
+
+            //     // Get the coordinates of the click on the view
+            //     var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
+            //     var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
+            //     console.log(lat, lon);
+            // });
         });
     }
 });

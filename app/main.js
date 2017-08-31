@@ -1,9 +1,10 @@
 require([
     "esri/Map",
     "esri/views/MapView",
+    "dojo/on",
     "dojo/dom",
     "dojo/domReady!"
-], function(Map, MapView, dom) {
+], function(Map, MapView, on, dom) {
     var map = new Map({
         basemap: "streets"
     });
@@ -11,7 +12,11 @@ require([
         container: "mainMap", // Reference to the scene div created in step 5
         map: map, // Reference to the map object created before the scene
         zoom: 8, // Sets zoom level based on level of detail (LOD)
-        center: [26.10, 44.44] // Sets center point of view using longitude,latitude
+        center: [26.10, 44.44], // Sets center point of view using longitude,latitude
+        constraints: {
+            rotationEnabled: false
+        }
     });
     view.ui.move("zoom", "bottom-left");
+
 });
