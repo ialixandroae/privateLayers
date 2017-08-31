@@ -53,6 +53,8 @@ require([
             dom.byId('mainMap').style.display = 'none';
             dom.byId('btnSignOut').style.display = 'block';
             dom.byId('btnSignIn').style.display = 'none';
+            dom.byId('coord').style.display = 'block';
+            dom.byId('coordMsg').style.display = 'block';
             // dom.byId('anonymousPanel').style.display = 'none';
 
             var map = new Map({
@@ -71,16 +73,12 @@ require([
 
             var traffic = new MapImageLayer({
                 url: 'https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer'
-            })
-            map.add(traffic);
-            view.ui.move("zoom", "bottom-left");
+            });
 
             var basemapToggle = new BasemapToggle({
                 view: view,
                 nextBasemap: "satellite"
             });
-
-            view.ui.add(basemapToggle, "bottom-right");
 
             var legend = new Legend({
                 view: view,
@@ -90,19 +88,23 @@ require([
                 }]
             });
 
+            map.add(traffic);
+            view.ui.move("zoom", "bottom-left");
+            view.ui.add(basemapToggle, "bottom-right");
             view.ui.add(legend, "top-right");
 
 
-            // view.on("click", function(event) {
-            //     // you must overwrite default click-for-popup
-            //     // behavior to display your own popup
-            //     event.stopPropagation();
+            view.on("click", function(event) {
+                // you must overwrite default click-for-popup
+                // behavior to display your own popup
+                event.stopPropagation();
 
-            //     // Get the coordinates of the click on the view
-            //     var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
-            //     var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
-            //     console.log(lat, lon);
-            // });
+                // Get the coordinates of the click on the view
+                var lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
+                var lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
+                console.log(lat, lon);
+                dom.byId("coord").innerHTML = "Coordonate: " + lat + " - " + lon;
+            });
         });
     }
 });
