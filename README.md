@@ -11,4 +11,4 @@ The application starts with a standar map with no layers and an upper-right Log 
 ## Resources
 
 The following APIs have been used to create this application:
-* <a target="blank" href="https://developers.arcgis.com/javascript/">ArcGIS JS API 4.4</a>
+* <a target="blank" href="https://developers.arcgis.com/javascript/">ArcGIS JS API 4.3</a>
